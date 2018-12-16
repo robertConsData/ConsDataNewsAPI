@@ -13,11 +13,11 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Component
-public class ConnectionUtils {
+public class NewsApiConnectionUtils {
 	
 	private static final String APIKEY = "0ebd108da98748099a2c81546ab02151";
 
-	Logger logger = Logger.getLogger(ConnectionUtils.class);
+	Logger logger = Logger.getLogger(NewsApiConnectionUtils.class);
 	
 	public String getURL(String country, String category) 
 	{
@@ -30,11 +30,12 @@ public class ConnectionUtils {
 		return newsURL;
 	}
 	
-	public JSONArray getArticles(String newsApiURL)
+	public JSONArray getArticles(String country, String category)
 	{
 		HttpResponse<JsonNode> jsonResponse = null;
 		try {
-			jsonResponse = Unirest.get(newsApiURL).asJson();
+			String url = getURL(country, category);
+			jsonResponse = Unirest.get(url).asJson();
 		} catch (UnirestException e) {
 			logger.error("Error during downloading data from NEWSAPI: " + e);
 		}

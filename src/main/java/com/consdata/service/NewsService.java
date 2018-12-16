@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.consdata.entity.Article;
 import com.consdata.entity.ArticleDTO;
 import com.consdata.entity.News;
-import com.consdata.utils.ConnectionUtils;
+import com.consdata.utils.NewsApiConnectionUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,12 +24,11 @@ public class NewsService {
 	Logger logger = Logger.getLogger(NewsService.class);
 	
 	@Autowired
-	ConnectionUtils connectionUtil;
+	NewsApiConnectionUtils connectionUtil;
 
 	public News getArticlesByCategory(@PathVariable String country, @PathVariable String category)
 	{
-		String url = connectionUtil.getURL(country, category);
-        JSONArray jsonarray = connectionUtil.getArticles(url);
+        JSONArray jsonarray = connectionUtil.getArticles(country, category);
         List<ArticleDTO> articlesDto = mapToArticleDto(jsonarray);
 		return new News(country, category, articlesDto);
 	}
