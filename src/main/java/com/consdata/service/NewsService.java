@@ -33,7 +33,7 @@ public class NewsService {
 		return new News(country, category, articlesDto);
 	}
 
-	private List<ArticleDTO> mapToArticleDto(JSONArray jsonarray) 
+	List<ArticleDTO> mapToArticleDto(JSONArray jsonarray) 
 	{
 		ObjectMapper mapper = new ObjectMapper();
 		List<Article> articles = null;
@@ -46,7 +46,7 @@ public class NewsService {
 		return articles.stream().map(this::mapToDto).collect(toList());
 	}
 	
-    private ArticleDTO mapToDto(Article article) 
+	ArticleDTO mapToDto(Article article) 
     {
     	ModelMapper modelMapper = new ModelMapper();
     	return modelMapper.map(article, ArticleDTO.class);
