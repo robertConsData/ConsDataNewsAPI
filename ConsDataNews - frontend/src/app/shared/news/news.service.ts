@@ -8,10 +8,13 @@ import { News } from '../../news';
 })
 export class NewsService {
 
+  NEWS_PL_BASE_PATH = "//localhost:8080/news/pl/";
+
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get<News>('//localhost:8080/news/pl/technology/');
+  getNewsByCategory(category: String){
+    return this.http.get<News>( this.NEWS_PL_BASE_PATH + category + '/');
+
   }
 }
 

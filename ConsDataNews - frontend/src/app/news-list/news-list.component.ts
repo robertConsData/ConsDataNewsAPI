@@ -9,14 +9,19 @@ import { News } from '../news';
   styleUrls: ['./news-list.component.css']
 })
 export class NewsListComponent implements OnInit {
-
+  selectedCategory: string;
   news: News;
+  CATEGORIES = ['business', 'entertainment', 'health', 'science', 'sports', 'technology'];
+  DEFAULT_CATEGORY = "technology";
 
   constructor(private newsService: NewsService) { }
 
   ngOnInit() {
-    this.newsService.getAll().subscribe((data: News) => this.news = { ...data }); 
-    
+    this.newsService.getNewsByCategory(this.DEFAULT_CATEGORY).subscribe((data: News) => this.news = { ...data }); 
   }
 
+  changeCategory() {
+    this.newsService.getNewsByCategory(this.selectedCategory).subscribe((data: News) => this.news = { ...data }); 
+  }
+  
 }

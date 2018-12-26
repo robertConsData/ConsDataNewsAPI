@@ -1,11 +1,18 @@
+<select [(ngModel)]="selectedCategory">
+    <option *ngFor="let category of CATEGORIES">
+        {{category}}
+    </option>
+</select>
+<button (click)="changeCategory()">Change category</button>
+
 <div *ngIf="news">
     <div>
-    {{news.country}}
-    {{news.category}}
+    
+    Country: {{news.country}}
+    News Category: {{news.category}}
     </div>
 
-    <div>
-    
+    <div>    
         <ul>
             <li *ngFor="let article of news.articles">  
                 {{article.title}}  
@@ -15,10 +22,8 @@
                 {{article.sourceName}}
                 {{article.articleUrl}}
                 {{article.imageUrl}}
-
             </li>
-            
-            
         </ul>
     </div>
 </div>
+
