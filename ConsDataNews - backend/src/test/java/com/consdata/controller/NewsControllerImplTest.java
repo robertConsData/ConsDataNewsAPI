@@ -18,18 +18,18 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.consdata.TestHelper;
-import com.consdata.service.NewsService;
+import com.consdata.service.NewsServiceImpl;
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(NewsController.class)
-public class NewsControllerTest {
+@WebMvcTest(NewsControllerImpl.class)
+public class NewsControllerImplTest {
 
 	@Autowired 
 	private MockMvc mockMvc;
 
 	@MockBean
-	private NewsService newsServiceMock;
+	private NewsServiceImpl newsServiceMock;
 	
 	private static final String NEWS_PL_TECHNOLOGY = "/news/pl/technology/";
 

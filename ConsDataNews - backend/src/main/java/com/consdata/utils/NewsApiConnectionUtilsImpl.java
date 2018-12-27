@@ -13,22 +13,11 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Component
-public class NewsApiConnectionUtils {
+public class NewsApiConnectionUtilsImpl {
 	
 	private static final String APIKEY = "0ebd108da98748099a2c81546ab02151";
 
-	Logger logger = Logger.getLogger(NewsApiConnectionUtils.class);
-	
-	public String getURL(String country, String category) 
-	{
-		String newsURL = "";
-		try {
-			newsURL = buildUrl(country, category);
-		} catch (URISyntaxException e) {
-			logger.error("Error during building URL to NEWSAPI: " + e);
-		}
-		return newsURL;
-	}
+	Logger logger = Logger.getLogger(NewsApiConnectionUtilsImpl.class);
 	
 	public JSONArray getArticles(String country, String category)
 	{
@@ -40,6 +29,17 @@ public class NewsApiConnectionUtils {
 			logger.error("Error during downloading data from NEWSAPI: " + e);
 		}
 		return jsonResponse.getBody().getObject().getJSONArray("articles");
+	}
+	
+	public String getURL(String country, String category) 
+	{
+		String newsURL = "";
+		try {
+			newsURL = buildUrl(country, category);
+		} catch (URISyntaxException e) {
+			logger.error("Error during building URL to NEWSAPI: " + e);
+		}
+		return newsURL;
 	}
 	
 	private String buildUrl(String country, String category) throws URISyntaxException 

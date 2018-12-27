@@ -20,10 +20,10 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.consdata.TestHelper;
-import com.consdata.utils.NewsApiConnectionUtils;
+import com.consdata.utils.NewsApiConnectionUtilsImpl;
 
 @RunWith(SpringRunner.class)
-public class NewsServiceTest {
+public class NewsServiceImplTest {
 	
 	@Mock
     JSONObject jsonObject;
@@ -32,10 +32,10 @@ public class NewsServiceTest {
     JSONArray jsonArray;
 	
 	@InjectMocks
-	private NewsService newsService;
+	private NewsServiceImpl newsService;
 	
 	@Mock
-	private NewsApiConnectionUtils connectionUtilsMock;
+	private NewsApiConnectionUtilsImpl connectionUtilsMock;
 	
 	@Test
 	public void shouldMapToDTO() throws JSONException {

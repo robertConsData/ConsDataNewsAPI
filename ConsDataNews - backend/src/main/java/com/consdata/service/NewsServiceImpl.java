@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.consdata.entity.Article;
 import com.consdata.entity.ArticleDTO;
 import com.consdata.entity.News;
-import com.consdata.utils.NewsApiConnectionUtils;
+import com.consdata.utils.NewsApiConnectionUtilsImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class NewsService {
+public class NewsServiceImpl implements NewsService{
 	
-	Logger logger = Logger.getLogger(NewsService.class);
+	Logger logger = Logger.getLogger(NewsServiceImpl.class);
 	
 	@Autowired
-	NewsApiConnectionUtils connectionUtil;
+	NewsApiConnectionUtilsImpl connectionUtil;
 
 	public News getArticlesByCategory(@PathVariable String country, @PathVariable String category)
 	{
