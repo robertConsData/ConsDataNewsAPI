@@ -1,55 +1,36 @@
 package com.consdata.service;
-import static java.util.stream.Collectors.toList;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.json.JSONArray;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.client.RestTemplate;
 
-import com.consdata.entity.Article;
-import com.consdata.entity.ArticleDTO;
 import com.consdata.entity.News;
-import com.consdata.utils.NewsApiConnectionUtilsImpl;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class NewsServiceImpl implements NewsService{
+public class NewsServiceImpl implements NewsService
+{
 	
-	Logger logger = Logger.getLogger(NewsServiceImpl.class);
+	static final String API_KEY = "0ebd108da98748099a2c81546ab02151";
 	
-	@Autowired
-	NewsApiConnectionUtilsImpl connectionUtil;
-
 	public News getArticlesByCategory(@PathVariable String country, @PathVariable String category)
 	{
-        JSONArray jsonarray = connectionUtil.getArticles(country, category);
-        List<ArticleDTO> articlesDto = mapToArticleDto(jsonarray);
-		return new News(country, category, articlesDto);
+		RestTemplate restTemplate = new RestTemplate();
+		String newsApiUrl = "https://newsapi.org/v2/top-headlines?country={country}&category={category}&apiKey={apiKey}";
+		
+		return restTemplate.getForObject( newsApiUrl ,News.class, buildUrlVariables(country, category));
 	}
 
-	List<ArticleDTO> mapToArticleDto(JSONArray jsonarray) 
+	private Map<String, String> buildUrlVariables(String country, String category) 
 	{
-		ObjectMapper mapper = new ObjectMapper();
-		List<Article> articles = null;
-		try {
-			articles = mapper.readValue(jsonarray.toString(), new TypeReference<List<Article>>(){});
-		} catch (IOException e) {
-			logger.error("Error during mapping JSON to Article entity: " + e);
-		} 
-
-		return articles.stream().map(this::mapToDto).collect(toList());
+		Map<String, String> urlVariables = new HashMap<String, String>();
+		
+        urlVariables.put("country", country);
+        urlVariables.put("category", category);
+        urlVariables.put("apiKey", API_KEY);
+        
+		return urlVariables;
 	}
-	
-	ArticleDTO mapToDto(Article article) 
-    {
-    	ModelMapper modelMapper = new ModelMapper();
-    	return modelMapper.map(article, ArticleDTO.class);
-    }
 
 }

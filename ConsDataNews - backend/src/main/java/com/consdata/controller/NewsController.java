@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.consdata.entity.News;
 
-public interface NewsController {
-
+public interface NewsController 
+{
 	
 	/**
 	 * Getting news by chosen country and category 

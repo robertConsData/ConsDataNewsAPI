@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder 
-public class News {
+public class News 
+{
 	
 	private String country;
 	private String category;

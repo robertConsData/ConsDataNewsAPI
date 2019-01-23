@@ -4,7 +4,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.consdata.entity.News;
 
-public interface NewsService {
+public interface NewsService 
+{
 
 	/**
 	 * Getting articles by chosen country and category 

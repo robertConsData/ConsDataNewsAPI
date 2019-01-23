@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.consdata.entity.News;
-import com.consdata.service.NewsServiceImpl;
+import com.consdata.service.NewsService;
 
 @RestController
-public class NewsControllerImpl implements NewsController {
+public class NewsControllerImpl implements NewsController 
+{
 
 	@Autowired
-	private NewsServiceImpl newsService;
+	private NewsService newsService;
 	
 	@CrossOrigin(origins = "http://localhost:4200")	
 	@RequestMapping("/news/{country}/{category}/")
